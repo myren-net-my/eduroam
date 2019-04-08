@@ -131,5 +131,5 @@ for IDX in "${!PARENT_IP_ADDRESSES[@]}"; do
     echo -e "\t${PARENT_IP_ADDRESSES[$IDX]}\t${PARENT_SECRETS[$IDX]}"
 done
 echo "Test account for Identity Provider (IdP):"
-echo -e "\tUsername: test@$LOCAL_SCHOOL_REALM\tPassword: HelloWorld"
+echo -e "\tUsername: test@$LOCAL_SCHOOL_REALM\tPassword: test1234"
 echo "========== End of useful information =========="
