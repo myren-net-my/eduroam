@@ -11,6 +11,8 @@ We will install freeradius v3 from the script.
        # firewall-cmd --permanent --add-port=1812/udp
        # firewall-cmd --permanent --add-port=1813/udp
        # firewall-cmd --permanent --add-port=2083/tcp
+       # firewall-cmd --permanent --add-port=80/tcp
+       # firewall-cmd --permanent --add-port=443/tcp
                 
 3. Reload the firewalld to make changes
 
