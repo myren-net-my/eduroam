@@ -43,7 +43,13 @@ We will install freeradius v3 from the script.
 
        # ./install.sh 
                 
-7. Start freeradius service
+7. Edit /etc/raddb/site-enabled/eap , replace private_key_file, certificate_file and CA_file with the following:
+
+       private_key_file = /etc/letsencrypt/live/ins'X'.myren.net.my/privkey.pem
+       certificate_file = /etc/letsencrypt/live/ins'X'.myren.net.my/cert.pem
+       CA_file = /etc/letsencrypt/live/ins'X'.myren.net.my/chain.pem
+
+8. Start freeradius service
 
        # systemctl enable radisud
        # systemctl start radiusd
