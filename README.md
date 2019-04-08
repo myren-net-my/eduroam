@@ -18,9 +18,14 @@ We will install freeradius v3 from the script.
 
        # firewall-cmd --reload
                 
-4. Install git to download the script :
+4. Install application and download the script to install the certificate and radius service :
 
        # yum -y install git
+       # git clone https://github.com/letsencrypt/letsencrypt
+       # chmod -R 755 letsencrypt
+       # cd letsencrypt
+       # ./letsencrypt-auto certonly -d ins'X'.myren.net.my
+       
        # git clone https://github.com/myren-net-my/eduroam.git 
                 
 5. Edit file as below :
@@ -30,8 +35,8 @@ We will install freeradius v3 from the script.
        # vi config.sh
        
        ## proxy.conf
-       ## for example (kkselayang.edu.my OR polibanting.edu.my)
-       export LOCAL_SCHOOL_REALM="institution.edu.my"
+       ## the real realm should be (kkselayang.edu.my OR polibanting.edu.my)
+       export LOCAL_SCHOOL_REALM="ins'X'.myren.net.my"
        export PARENT_IP_ADDRESSES=("203.80.16.18")
 
 6. Run installation script
