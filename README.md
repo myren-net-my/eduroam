@@ -40,4 +40,5 @@ We will install freeradius v3 from the script.
                 
 7. Start freeradius service
 
+       # systemctl enable radisud
        # systemctl start radiusd
