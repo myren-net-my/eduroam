@@ -4,4 +4,4 @@ export CLIENT_SECRET="NbsROz14fz3wFjDe"
 
 ## proxy.conf
 export LOCAL_SCHOOL_REALM="instition.edu.my"
-export PARENT_IP_ADDRESSES=("162.105.129.2" "162.105.129.5")
+export PARENT_IP_ADDRESSES=("203.80.16.20" "203.80.16.18")
