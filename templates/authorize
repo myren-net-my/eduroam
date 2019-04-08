@@ -84,7 +84,7 @@
 # The canonical testing user which is in most of the
 # examples.
 #
-test@$LOCAL_SCHOOL_REALM	Cleartext-Password := "HelloWorld"
+test@$LOCAL_SCHOOL_REALM	Cleartext-Password := "test1234"
 	Reply-Message := "Hello, %{User-Name}"
 
 
