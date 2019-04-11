@@ -24,24 +24,48 @@ We will install freeradius v3 from the script.
        # git clone https://github.com/letsencrypt/letsencrypt
        # chmod -R 755 letsencrypt
        # cd letsencrypt
-       # ./letsencrypt-auto certonly -d ins'X'.myren.net.my
+       # ./letsencrypt-auto certonly -d idp.XXXX.edu.my
        
-       # git clone https://github.com/myren-net-my/eduroam.git 
-                
-5. Edit file as below :
+              How would you like to authenticate with the ACME CA?
+              - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		1: Spin up a temporary webserver (standalone)
+		2: Place files in webroot directory (webroot)
+		- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		Select the appropriate number [1-2] then [enter] (press 'c' to cancel): 1
+		Plugins selected: Authenticator standalone, Installer None
+		Enter email address (used for urgent renewal and security notices) (Enter 'c' to
+		cancel): admin@email.com
 
-       # chmod -R 755 eduroam
-       # cd eduroam
-       # vi config.sh
-       
-       ## proxy.conf
-       ## the real realm should be (kkselayang.edu.my OR polibanting.edu.my)
-       export LOCAL_SCHOOL_REALM="ins'X'.myren.net.my"
-       export PARENT_IP_ADDRESSES=("203.80.16.18")
+		- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		Please read the Terms of Service at
+		https://letsencrypt.org/documents/LE-SA-v1.2-November-15-2017.pdf. You must
+		agree in order to register with the ACME server at
+		https://acme-v02.api.letsencrypt.org/directory
+		- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		(A)gree/(C)ancel: A
 
-6. Run installation script
+		- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		Would you be willing to share your email address with the Electronic Frontier
+		Foundation, a founding partner of the Let's Encrypt project and the non-profit
+		organization that develops Certbot? We'd like to send you email about our work
+		encrypting the web, EFF news, campaigns, and ways to support digital freedom.
+		- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		(Y)es/(N)o: Y
+		Obtaining a new certificate
+		Performing the following challenges:
+		http-01 challenge for idp.XXXX.edu.my
+		Waiting for verification...
+		Cleaning up challenges
 
-       # ./install.sh 
+		IMPORTANT NOTES:
+		 - Congratulations! Your certificate and chain have been saved at:
+		   /etc/letsencrypt/live/sso.myren.net.my/fullchain.pem
+		   Your key file has been saved at:
+		   /etc/letsencrypt/live/sso.myren.net.my/privkey.pem
+		   Your cert will expire on 2019-07-10. To obtain a new or tweaked
+		   version of this certificate in the future, simply run
+		   letsencrypt-auto again. To non-interactively renew *all* of your
+		   certificates, run "letsencrypt-auto renew"
                 
 7. Edit /etc/raddb/site-enabled/eap , replace private_key_file, certificate_file and CA_file with the following:
 
