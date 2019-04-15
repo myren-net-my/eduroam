@@ -86,8 +86,8 @@ We will install freeradius v3 from the script.
 
 	    cd /root/
 	    git clone https://github.com/myren-net-my/eduroamv2
-	    chmod -R 755 eduroamv2
 	    cd eduroamv2
+	    chmod 755 setup_irs
 	    ./setup_irs
 	    
 	    ======= Setup .my IRS configuration =======
