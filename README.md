@@ -31,6 +31,8 @@ We will install freeradius v3 from the script.
        cd letsencrypt
        ./letsencrypt-auto certonly -d idp.XXXX.edu.my
        
+       	=====the result=====
+       
             How would you like to authenticate with the ACME CA?
             - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
             1: Spin up a temporary webserver (standalone)
@@ -80,12 +82,12 @@ We will install freeradius v3 from the script.
 	   
 8. Download and extract the freeradius v3 package
 
-	   wget ftp://ftp.freeradius.org/pub/freeradius/freeradius-server-3.0.19.tar.gz
-	   tar zxf freeradius-server-3.0.19.tar.gz
+	   wget ftp://ftp.freeradius.org/pub/freeradius/freeradius-server-3.0.18.tar.gz
+	   tar -zxf freeradius-server-3.0.18.tar.gz
 	   
 9. Build and install the package
 
-	   cd freeradius-server-3.0.19
+	   cd freeradius-server-3.0.18
 	   ./configure --prefix=/opt/freeradius
 	   make
 	   make install
