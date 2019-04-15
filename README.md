@@ -29,20 +29,10 @@ We will install freeradius v3 from the script.
        git clone https://github.com/letsencrypt/letsencrypt
        chmod -R 755 letsencrypt
        cd letsencrypt
-       ./letsencrypt-auto certonly -d idp.XXXX.edu.my
+       ./certbot-auto certonly --standalone --email name@yourmail.com -d idp.XXXX.edu.my
        
        	=====the result=====
-       
-            How would you like to authenticate with the ACME CA?
-            - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-            1: Spin up a temporary webserver (standalone)
-            2: Place files in webroot directory (webroot)
-            - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-            Select the appropriate number [1-2] then [enter] (press 'c' to cancel): 1
-            Plugins selected: Authenticator standalone, Installer None
-            Enter email address (used for urgent renewal and security notices) (Enter 'c' to
-            cancel): admin@email.com
-
+            
             - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
             Please read the Terms of Service at
             https://letsencrypt.org/documents/LE-SA-v1.2-November-15-2017.pdf. You must
