@@ -8,23 +8,23 @@ We will install freeradius v3 from the script.
               
 2. Allow radius and radsec protocol in firewalld
 
-       # firewall-cmd --permanent --add-port=1812/udp
-       # firewall-cmd --permanent --add-port=1813/udp
-       # firewall-cmd --permanent --add-port=2083/tcp
-       # firewall-cmd --permanent --add-port=80/tcp
-       # firewall-cmd --permanent --add-port=443/tcp
+       firewall-cmd --permanent --add-port=1812/udp
+       firewall-cmd --permanent --add-port=1813/udp
+       firewall-cmd --permanent --add-port=2083/tcp
+       firewall-cmd --permanent --add-port=80/tcp
+       firewall-cmd --permanent --add-port=443/tcp
                 
 3. Reload the firewalld to make changes
 
-       # firewall-cmd --reload
+       firewall-cmd --reload
                 
 4. Install application and download the script to install the certificate and radius service :
 
-       # yum -y install git
-       # git clone https://github.com/letsencrypt/letsencrypt
-       # chmod -R 755 letsencrypt
-       # cd letsencrypt
-       # ./letsencrypt-auto certonly -d idp.XXXX.edu.my
+       yum -y install git
+       git clone https://github.com/letsencrypt/letsencrypt
+       chmod -R 755 letsencrypt
+       cd letsencrypt
+       ./letsencrypt-auto certonly -d idp.XXXX.edu.my
        
             How would you like to authenticate with the ACME CA?
             - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -59,7 +59,7 @@ We will install freeradius v3 from the script.
 
 		IMPORTANT NOTES:
 		 - Congratulations! Your certificate and chain have been saved at:
-		   /etc/letsencrypt/live/sso.myren.net.my/fullchain.pem
+		   /etc/letsencrypt/live/idp.XXXX.net.my/fullchain.pem
 		   Your key file has been saved at:
 		   /etc/letsencrypt/live/idp.XXXX.edu.my/privkey.pem
 		   Your cert will expire on 2019-07-10. To obtain a new or tweaked
@@ -67,13 +67,49 @@ We will install freeradius v3 from the script.
 		   letsencrypt-auto again. To non-interactively renew *all* of your
 		   certificates, run "letsencrypt-auto renew"
                 
-7. Edit /etc/raddb/site-enabled/eap , replace private_key_file, certificate_file and CA_file with the following:
+7. Install all the required packages
 
-       private_key_file = /etc/letsencrypt/live/ins'X'.myren.net.my/privkey.pem
-       certificate_file = /etc/letsencrypt/live/ins'X'.myren.net.my/cert.pem
-       CA_file = /etc/letsencrypt/live/ins'X'.myren.net.my/chain.pem
+	   cd /root/
+	   yum install -y libtalloc-devel libtool libtool-ltdl-devel net-snmp-devel net-snmp-utils readline-devel libpcap-devel libcurl-devel openldap-devel python-devel mysql-devel sqlite-devel unixODBC-devel freetds-devel samba4-devel json-c-devel wget
+	   
+8. Download and extract the freeradius v3 package
 
-8. Start freeradius service
+	   wget ftp://ftp.freeradius.org/pub/freeradius/freeradius-server-3.0.19.tar.gz
+	   tar zxf freeradius-server-3.0.19.tar.gz
+	   
+9. Build and install the package
 
-       # systemctl enable radisud
-       # systemctl start radiusd
+	   cd freeradius-server-3.0.19
+	   ./configure --prefix=/opt/freeradius
+	   make
+	   make install
+	
+10. Configure IDP server
+
+	    cd /root/
+	    git clone https://github.com/myren-net-my/eduroamv2
+	    chmod -R 755 eduroamv2
+	    cd eduroamv2
+	    ./setup_irs
+	    
+	    ======= Setup .my IRS configuration =======
+	    Input your reaml (e.g. 'university.edu.my) : XXXX.edu.my
+	    Input your secret key (e.g. 'eduroamkey') : XXXXXXX
+	    Input your Freeradius 3 installation directory (e.g. '/opt/freeradius/') : /opt/freeradius
+	    Input your host certificate private key file (e.g. '/etc/letsencrypt/live/idp.XXXX.edu.my/privkey.pem') : 
+	    Input your host certificate public key file (e.g. '/etc/letsencrypt/live/idp.XXXX.edu.my/cert.pem') :
+
+11. Test run
+
+	    cd /opt/freeradius/sbin/
+	    ./radiusd -X
+	    
+	    =====the result=====
+	    
+	    	Listening on auth address * port 1812 bound to server default
+		Listening on acct address * port 1813 bound to server default
+		Listening on auth address 127.0.0.1 port 18120 bound to server inner-tunnel
+		Listening on proxy address * port 52246
+		Ready to process requests
+		
+	    ======Press Ctl-C to cancel======
