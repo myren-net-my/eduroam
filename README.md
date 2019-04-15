@@ -4,7 +4,7 @@ We will install freeradius v3 from the script.
 
 1. Update and refesh the CentOS 7 package repositories to ensure we receive the most up-to-date packages:
 
-       # yum -y update
+       yum -y update
               
 2. Allow radius and radsec protocol in firewalld
 
@@ -23,8 +23,6 @@ We will install freeradius v3 from the script.
        setenforce 0
        sed -i 's/^SELINUX=.*/SELINUX=permissive/g' /etc/selinux/config
        
-5. 
-                
 4. Install application and download the script to install the certificate and radius service :
 
        yum -y install git
