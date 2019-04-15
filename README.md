@@ -70,8 +70,6 @@ We will install freeradius v3 from the script.
 	   yum groupinstall -y "Development Tools"
 	   yum install -y libtalloc-devel libtool libtool-ltdl-devel wget
 	   
-	   net-snmp-devel net-snmp-utils readline-devel libpcap-devel libcurl-devel openldap-devel python-devel mysql-devel sqlite-devel unixODBC-devel freetds-devel samba4-devel json-c-devel
-	   
 8. Download and extract the freeradius v3 package
 
 	   wget ftp://ftp.freeradius.org/pub/freeradius/freeradius-server-3.0.18.tar.gz
