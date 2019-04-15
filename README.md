@@ -23,7 +23,7 @@ We will install freeradius v3 from the script.
        setenforce 0
        sed -i 's/^SELINUX=.*/SELINUX=permissive/g' /etc/selinux/config
        
-4. Install application and download the script to install the certificate and radius service :
+4. Install application and download the script to install the certificate :
 
        yum -y install git
        git clone https://github.com/letsencrypt/letsencrypt
@@ -67,8 +67,10 @@ We will install freeradius v3 from the script.
 7. Install all the required packages
 
 	   cd /root/
-	   yum groupinstall "Development Tools"
-	   yum install -y libtalloc-devel libtool libtool-ltdl-devel net-snmp-devel net-snmp-utils readline-devel libpcap-devel libcurl-devel openldap-devel python-devel mysql-devel sqlite-devel unixODBC-devel freetds-devel samba4-devel json-c-devel wget
+	   yum groupinstall -y "Development Tools"
+	   yum install -y libtalloc-devel libtool libtool-ltdl-devel wget
+	   
+	   net-snmp-devel net-snmp-utils readline-devel libpcap-devel libcurl-devel openldap-devel python-devel mysql-devel sqlite-devel unixODBC-devel freetds-devel samba4-devel json-c-devel
 	   
 8. Download and extract the freeradius v3 package
 
