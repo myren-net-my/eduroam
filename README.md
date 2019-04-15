@@ -17,6 +17,13 @@ We will install freeradius v3 from the script.
 3. Reload the firewalld to make changes
 
        firewall-cmd --reload
+       
+4. Set SElinux to permissive mode
+
+       setenforce 0
+       sed -i 's/^SELINUX=.*/SELINUX=permissive/g' /etc/selinux/config
+       
+5. 
                 
 4. Install application and download the script to install the certificate and radius service :
 
@@ -70,6 +77,7 @@ We will install freeradius v3 from the script.
 7. Install all the required packages
 
 	   cd /root/
+	   yum groupinstall "Development Tools"
 	   yum install -y libtalloc-devel libtool libtool-ltdl-devel net-snmp-devel net-snmp-utils readline-devel libpcap-devel libcurl-devel openldap-devel python-devel mysql-devel sqlite-devel unixODBC-devel freetds-devel samba4-devel json-c-devel wget
 	   
 8. Download and extract the freeradius v3 package
