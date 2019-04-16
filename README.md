@@ -111,3 +111,29 @@ We will install freeradius v3 from the script.
 		Ready to process requests
 		
 	    ======Press Ctl-C to cancel======
+
+12. Add local user
+
+	    cd /opt/freeradius/etc/raddb
+	    vi users
+	    
+	    ========
+	    add test account below
+	    ========
+	    
+	    test    Realm == "XXXX.edu.my", Cleartext-Password := "test1234"
+	    
+13. Add client / AP / controller details
+
+	    vi clients.conf
+	    
+	    # Your Institution AP  example        #
+		client AP1-traningroom {
+			ipaddr   =  xx.xx.xx.xx
+			secret  =   XXXX
+			nas_type = other
+			Operator-Name = 1XXXX.edu.my
+			add_cui = yes
+			require_message_authenticator = no
+			shortname =  your-ap1
+		}
