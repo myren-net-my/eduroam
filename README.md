@@ -137,3 +137,51 @@ We will install freeradius v3 from the script.
 			require_message_authenticator = no
 			shortname =  your-ap1
 		}
+
+14. Edit files proxy.conf and clients.conf, comment client flr2 and edit client flr1 to this value. To start edit press i, to save press ESC then :wq
+
+	    cd /opt/freeradius/etc/raddb/
+	    
+	    vi clients.conf
+	    
+	    	client flr1 {
+		ipaddr          = 203.80.16.18
+		secret          = myr3n
+		shortname     = flr1
+		nas_type       = other
+		virtual_server = eduroam
+		Operator-Name  = 1nro-lab.myren.net.my
+		}
+
+		#client flr2 {
+		#       ipaddr          = 119.40.121.26
+		#        secret          = myr3n
+		#        shortname       = flr2
+		#        nas_type        = other
+		#        virtual_server = eduroam
+		#        Operator-Name  = 1nro2.eduroam.my
+		#}
+		
+	    =============================================	
+	    vi proxy.conf
+	    
+	    	# Radius-Proxy Server of National Roaming Operator
+		home_server flr1 {
+			ipaddr                  = 203.80.16.18
+			port                     = 1812
+			secret                  = myr3n
+			status_check         = status-server
+		}
+		#home_server flr2 {
+		#        ipaddr                  = 119.40.121.26
+		#        port                     = 1812
+		#        secret                  = myr3n
+		#        status_check         = status-server
+		#}
+		
+		home_server_pool eduroam {
+			type                         = fail-over
+			home_server             = flr1
+		#        home_server            = flr2
+			nostrip
+		}
