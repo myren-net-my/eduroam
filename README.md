@@ -185,3 +185,12 @@ We will install freeradius v3 from the script.
 		#        home_server            = flr2
 			nostrip
 		}
+
+
+To start service 
+
+	   /opt/freeradius/sbin/radiusd
+	  
+To stop service 
+
+	    pkill radius
