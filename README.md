@@ -194,3 +194,15 @@ To start service
 To stop service 
 
 	    pkill radius
+
+# Integration with Active Directory (AD)
+
+1. Install Samba. This service is required to communicate with Active Directory.
+
+	    yum install samba samba-winbind samba-client samba-winbind-clients
+	    
+2. Edit your samba configuration (/etc/samba/smb.conf)
+
+	    vi /etc/samba/smb.conf
+	    
+	    
