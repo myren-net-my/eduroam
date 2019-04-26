@@ -203,6 +203,92 @@ To stop service
 	    
 2. Edit your samba configuration (/etc/samba/smb.conf)
 
-	    vi /etc/samba/smb.conf
+	   vi /etc/samba/smb.conf
 	    
+	   workgroup = *POLI <---- Change this
+	   security = ads
+	   password server = *myadserver.usm.my <---- Change to your DC
+	   realm = *POLI.EDU.MY <---- Change to your realm
+	   
+3. Edit your kerberos configuration (/etc/krb5.conf)
+
+	   vi /etc/krb5.conf
+	   
+	   [logging]
+	    default = FILE:/var/log/krb5libs.log
+	    kdc = FILE:/var/log/krb5kdc.log
+	    admin_server = FILE:/var/log/kadmind.log
+
+
+	   [libdefaults]
+	    default_realm = POLI.EDU.MY <---- Change to your realm
+	    dns_lookup_realm = false
+	    dns_lookup_kdc = false
+	    ticket_lifetime = 24h
+	    renew_lifetime = 7d
+	    forwardable = true
+
+	   [realms]
+	    POLI.EDU.MY = { <--- Your institution realm
+	    kdc = ad-server.poli.edu.my:88 <--- Change to your DC
+	    admin_server = ad-server.poli.edu.my:749 <----- Change to your DC
+	    }
+
+	   [domain_realm]
+	    .poli.edu.my = POLI.EDU.MY <---- change to your realm
+	    poli.edu.my = POLI.EDU.MY <---- change to your realm
 	    
+4. Edit your nsswitch configuration (/etc/nsswitch.conf)
+
+	   vi /etc/nsswitch.conf
+	   
+	   passwd:     files winbind
+	   shadow:     files winbind
+	   group:      files winbind
+	   protocols:  files winbind
+	   services:   files winbind
+	   netgroup:   nisplus winbind
+	   automount:  files nisplus winbind
+	   
+5. Enable your service on boot.
+
+	   systemctl enable smb nmb winbind
+	   
+6. Restart samba services
+
+	   systemctl restart smb nmb winbind
+	   
+7. Reboot your server
+
+	   reboot
+	   
+8. Join Domain. *the account must member of domain admin (change eduroamad@poli.edu.my with your identity)
+
+	   net ads join –U eduroamad@poli.edu.my
+	   
+9. Test ntlm_auth
+
+	   ntlm_auth -–request-nt-key -–domain=poli.edu.my –-username=hamid
+	   
+	     ===========result=============
+	     NT_SUCCESS_OK = Success
+	   
+	       If you receive the above message, you are done with Samba.
+	   
+10. Execute setfacl -m u:radiusd:rx winbindd_privileged to allow radius to access the directory
+
+	    cd /var/lib/samba
+	    setfacl -m u:radiusd:rx winbindd_privileged
+	    
+11. Configure FreeRADIUS + ntlm_auth Edit mschap configuration (/opt/freeradius/etc/raddb/mods-available/mschap)
+
+	    vi /opt/freeradius/etc/raddb/mods-available/mschap
+	    
+	    mschap {
+	    use_mppe = yes
+	    require_encryption = yes
+	    require_strong = yes
+	    with_ntdomain_hack = yes
+
+	    ntlm_auth = "/usr/bin/ntlm_auth --request-nt-key --username=%{%{Stripped-User-Name}:-%{%{User-Name}:-None}} --domain=%{%{mschap:NT-Domain}:-%{realm}} --challenge=%{%{mschap:Challenge}:-00} --nt-response=%{%{mschap:NT-Response}:-00}"
+	    }
