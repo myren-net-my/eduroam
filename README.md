@@ -29,7 +29,7 @@ We will install freeradius v3 from the script.
        git clone https://github.com/letsencrypt/letsencrypt
        chmod -R 755 letsencrypt
        cd letsencrypt
-       ./certbot-auto certonly --standalone --email name@yourmail.com -d idp.XXXX.edu.my
+       ./certbot-auto certonly --standalone --email name@yourmail.com -d insXX.myren.net.my
        
        	=====the result=====
             
@@ -91,11 +91,11 @@ We will install freeradius v3 from the script.
 	    ./setup_irs
 	    
 	    ======= Setup .my IRS configuration =======
-	    Input your reaml (e.g. 'university.edu.my) : XXXX.edu.my
+	    Input your reaml (e.g. 'poli.edu.my) : XXXX.edu.my
 	    Input your secret key (e.g. 'eduroamkey') : XXXXXXX
 	    Input your Freeradius 3 installation directory (e.g. '/opt/freeradius/') : /opt/freeradius
-	    Input your host certificate private key file (e.g. '/etc/letsencrypt/live/idp.XXXX.edu.my/privkey.pem') : 
-	    Input your host certificate public key file (e.g. '/etc/letsencrypt/live/idp.XXXX.edu.my/cert.pem') :
+	    Input your host certificate private key file (e.g. '/etc/letsencrypt/live/insXX.myren.net.my/privkey.pem') : 
+	    Input your host certificate public key file (e.g. '/etc/letsencrypt/live/insXX.myren.net.my/cert.pem') :
 
 11. Test run
 
