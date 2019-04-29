@@ -92,7 +92,7 @@ We will install freeradius v3 from the script.
 	    
 	    ======= Setup .my IRS configuration =======
 	    Input your reaml (e.g. 'poli.edu.my) : XXXX.edu.my
-	    Input your secret key (e.g. 'eduroamkey') : XXXXXXX
+	    Input your secret key (e.g. 'myr3n') : XXXXXXX
 	    Input your Freeradius 3 installation directory (e.g. '/opt/freeradius/') : /opt/freeradius
 	    Input your host certificate private key file (e.g. '/etc/letsencrypt/live/insXX.myren.net.my/privkey.pem') : 
 	    Input your host certificate public key file (e.g. '/etc/letsencrypt/live/insXX.myren.net.my/cert.pem') :
