@@ -23,13 +23,13 @@ We will install freeradius v3 from the script.
        setenforce 0
        sed -i 's/^SELINUX=.*/SELINUX=permissive/g' /etc/selinux/config
        
-4. Install application and download the script to install the certificate :
+4. Install application and download the script to install the certificate (if don't have tne comercial certificate - only works with single domain certificate): 
 
        yum -y install git
        git clone https://github.com/letsencrypt/letsencrypt
        chmod -R 755 letsencrypt
        cd letsencrypt
-       ./certbot-auto certonly --standalone --email name@yourmail.com -d insXX.myren.net.my
+       ./certbot-auto certonly --standalone --email name@yourmail.com -d idp.XXXX.edu.my
        
        	=====the result=====
             
@@ -123,7 +123,7 @@ We will install freeradius v3 from the script.
 	    
 	    test    Realm == "XXXX.edu.my", Cleartext-Password := "test1234"
 	    
-13. Add client / AP / controller details
+13. Add client / AP / controller details. To start edit press i, to save press ESC then :wq
 
 	    vi clients.conf
 	    
@@ -136,54 +136,6 @@ We will install freeradius v3 from the script.
 			add_cui = yes
 			require_message_authenticator = no
 			shortname =  your-ap1
-		}
-
-14. Edit files proxy.conf and clients.conf, comment client flr2 and edit client flr1 to this value. To start edit press i, to save press ESC then :wq
-
-	    cd /opt/freeradius/etc/raddb/
-	    
-	    vi clients.conf
-	    
-	    	client flr1 {
-		ipaddr          = 203.80.16.18
-		secret          = myr3n
-		shortname     = flr1
-		nas_type       = other
-		virtual_server = eduroam
-		Operator-Name  = 1nro-lab.myren.net.my
-		}
-
-		#client flr2 {
-		#       ipaddr          = 119.40.121.26
-		#        secret          = myr3n
-		#        shortname       = flr2
-		#        nas_type        = other
-		#        virtual_server = eduroam
-		#        Operator-Name  = 1nro2.eduroam.my
-		#}
-		
-	    =============================================	
-	    vi proxy.conf
-	    
-	    	# Radius-Proxy Server of National Roaming Operator
-		home_server flr1 {
-			ipaddr                  = 203.80.16.18
-			port                     = 1812
-			secret                  = myr3n
-			status_check         = status-server
-		}
-		#home_server flr2 {
-		#        ipaddr                  = 119.40.121.26
-		#        port                     = 1812
-		#        secret                  = myr3n
-		#        status_check         = status-server
-		#}
-		
-		home_server_pool eduroam {
-			type                         = fail-over
-			home_server             = flr1
-		#        home_server            = flr2
-			nostrip
 		}
 
 
